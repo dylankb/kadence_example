@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@kadenceproject/kadence": "^3.0.0"
+    "@kadenceproject/kadence": "^3.0.1"
   }
 }
