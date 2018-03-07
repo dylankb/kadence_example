@@ -7,6 +7,7 @@
 // Import dependencies
 const bunyan = require('bunyan');
 const levelup = require('levelup');
+const leveldown = require('leveldown');
 const kad = require('@kadenceproject/kadence');
 
 // Construct a kademlia node interface; the returned `Node` object exposes:
@@ -16,7 +17,7 @@ const kad = require('@kadenceproject/kadence');
 // - identity
 const node = kad({
   transport: new kad.HTTPTransport(),
-  storage: levelup('mydb/storage.db'),
+  storage: levelup(leveldown('./mydb')),
   contact: { hostname: 'localhost', port: 1337 }
 });
 
