@@ -7,7 +7,7 @@
 // Import dependencies
 const bunyan = require('bunyan');
 const levelup = require('levelup');
-const kad = require('kad');
+const kad = require('@kadenceproject/kadence');
 
 // Construct a kademlia node interface; the returned `Node` object exposes:
 // - router
