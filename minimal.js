@@ -78,7 +78,3 @@ otherNode.router.forEach(bucket => {
     console.log("node: ", bucket.head)
   }
 })
-
-node.ping([otherNode.identity.toString('hex'), otherNode.contact], (error, latency) => {
-  console.log('ping successful?', error, latency)
-})
