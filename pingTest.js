@@ -44,7 +44,7 @@ node.join(['ea48d3f07a5241291ed0b4cab6483fa8b8fcc127', {
 
 const otherNode = kad({
   transport: new kad.HTTPTransport(),
-  storage: levelup(encoding(leveldown('./mydb'))),
+  storage: levelup(encoding(leveldown('./otherdb'))),
   contact: { hostname: 'localhost', port: 1338}
 })
 

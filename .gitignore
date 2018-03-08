@@ -2,3 +2,9 @@ node_modules/
 
 mydb/CURRENT
 mydb/LOG.old
+mydb/LOG
+mydb/LOCK
+otherdb/CURRENT
+otherdb/LOG.old
+otherdb/LOG
+otherdb/LOCK
