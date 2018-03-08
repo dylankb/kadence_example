@@ -53,32 +53,9 @@ otherNode.listen(1338)
 otherNode.join([node.identity, node.contact], () => {
 });
 
-console.log('Node info:\n');
-console.log(`node routing table size: ${node.router.size}`)
-console.log("node id: ", node.identity.toString('hex'))
-console.log(`node's port: ${node.contact.port}`);
+// If you uncomment this, I don't see anything different in the console so I
+// can't tell if it's working. Ping may not be set up to log to the console, though.
 
-console.log('\notherNode info:\n');
-console.log(`otherNode routing table size: ${otherNode.router.size}`)
-console.log("otherNode id: ", otherNode.identity.toString('hex'))
-console.log("otherNode port: ", otherNode.contact.port);
-
-node.router.forEach(bucket => {
-  if (bucket.head) {
-    console.log("\nNode's routing table bucket contact:")
-    console.log("bootstrap node id: ", bucket.keys().next().value.toString('hex'))
-    console.log("bootstrap node: ", bucket.head)
-  }
-})
-
-otherNode.router.forEach(bucket => {
-  if (bucket.head) {
-    console.log("\notherNode's routing table bucket contact:\n")
-    console.log("node id: ", bucket.keys().next().value.toString('hex'))
-    console.log("node: ", bucket.head)
-  }
-})
-
-node.ping([otherNode.identity.toString('hex'), otherNode.contact], (error, latency) => {
-  console.log('ping successful?', error, latency)
-})
+// node.ping([otherNode.identity.toString('hex'), otherNode.contact], (error, latency) => {
+//   console.log('ping successful?', error, latency)
+// })
