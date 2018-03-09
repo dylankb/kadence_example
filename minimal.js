@@ -1,7 +1,3 @@
-/**
- * @example kad/example/minimal
- */
-
 'use strict';
 
 // Import dependencies
