@@ -92,9 +92,9 @@ async.series([
 // else if (!bucketHasSpace) {
 //   response = PING(bucket.head) // ping least-recently seen node
 //   if (response) {
-//     evict least recently seen node, add sending node to tail
+//     move least recently seen node to tail, discard sending               - this seems to be happening
 //   } else {
-//     move least recently seen node to tail, discard sending
+//     evict least recently seen node, add sending node to tail
 
 // If none of the above made sense, basically if node pings otherNode, node should
 // now be in one of otherNodes’ buckets.

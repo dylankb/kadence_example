@@ -17,13 +17,14 @@ const seedNode = kad({
 
 seedNode.listen(8080);
 
+// A4DFC... JOINS seedNode's routing table. That's why it was always in seedNode's
+// routing table :)
 seedNode.join(['A4DFCD6A5BCE877899728CC65CCC9C49FC35B81C', {
   hostname: 'localhost',
   port: 1001
 }], () => {})
 
 // node - setup and join network via seedNode
-
 const node = kad({
   transport: new kad.HTTPTransport(),
   storage: levelup(encoding(leveldown('./mydb'))),
@@ -31,10 +32,10 @@ const node = kad({
 });
 
 node.listen(1337);
-node.join([seedNode.identity, seedNode.contact])
+// node JOINS seedNode's routing table
+seedNode.join([node.identity, node.contact])
 
 // otherNode - setup and join network via seedNode
-
 const otherNode = kad({
   transport: new kad.HTTPTransport(),
   storage: levelup(encoding(leveldown('./otherdb'))),
@@ -42,15 +43,14 @@ const otherNode = kad({
 });
 
 otherNode.listen(1338);
-otherNode.join([seedNode.identity, seedNode.contact])
+seedNode.join([otherNode.identity, otherNode.contact])
 
-console.log(`seedNode connected to ${seedNode.router.size} peers!`); // should be 2
+console.log(`seedNode connected to ${seedNode.router.size} peers!`); // should be 3
 console.log("seedNode's routing table bucket contacts:")
 seedNode.router.forEach(bucket => {
   if (bucket.head) {
     bucket.forEach(contact => {
-      console.log('Only logs out original joining node');
-      console.log(contact); // Only logs A4DFCD6A5BCE877899728CC65CCC9C49FC35B81C node
+      console.log(contact); // 'Logs out all nodes that joined its routing table'
     });
   }
 })
