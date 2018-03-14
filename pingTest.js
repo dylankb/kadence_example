@@ -16,17 +16,15 @@ const node = kad({
 
 node.listen(1337);
 
-// otherNode - setup and join network via node
 const otherNode = kad({
   transport: new kad.HTTPTransport(),
   storage: levelup(encoding(leveldown('./otherdb'))),
   contact: { hostname: 'localhost', port: 1338}
-})
-
+});
 otherNode.listen(1338)
 
-otherNode.join([node.identity, node.contact], () => {
-});
+// node joins otherNodes routing table
+otherNode.join([node.identity, node.contact], () => {});
 
 // node should have no contacts at this point prior to the ping
 console.log(`node router size - pre-ping: ${node.router.size}`);
@@ -37,15 +35,15 @@ console.log(`node router size - pre-ping: ${node.router.size}`);
 
 // Doesn't work. First attempt - test in ping callback.
 
-// node.ping([otherNode.identity.toString('hex'), otherNode.contact], (error, latency) => {
-//   console.log('ping successful?', error, latency)
-//   console.log(`node router size - post-ping: ${node.router.size}`); // 0
-//   node.router.forEach(bucket => {
-//     bucket.forEach(contact => {
-//       console.log('Post ping contact: ', contact);
-//     });
-//   });
-// });
+node.ping([otherNode.identity.toString('hex'), otherNode.contact], (error, latency) => {
+  console.log('ping successful?', error, latency)
+  console.log(`node router size - post-ping: ${node.router.size}`); // 0
+  node.router.forEach(bucket => {
+    bucket.forEach(contact => {
+      console.log('Post ping contact: ', contact);
+    });
+  });
+});
 
 // Does not currently work. async#series.
 // https://caolan.github.io/async/docs.html#series
@@ -112,10 +110,10 @@ console.log(`node router size - pre-ping: ${node.router.size}`);
 // });
 // promise.then(function(node) {
 //   console.log('promise param function body');
-  // node.router.forEach(bucket => {
-  //   bucket.forEach(contact => {
-  //     console.log('Post ping contacts?', contact);
-  //   })
+//   node.router.forEach(bucket => {
+//     bucket.forEach(contact => {
+//       console.log('Post ping contacts?', contact);
+//     })
 //   })
 
 // Doesn't work. Promise.resolve
