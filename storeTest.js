@@ -38,43 +38,38 @@ const byteValues = [163, 127, 17, 14, 100, 83, 221, 129, 205, 61, 198, 248, 20, 
 const nodeKey = Buffer.from(byteValues)
 
 // https://kadence.github.io/lib_node-kademlia.js.html
-// node.iterativeStore(nodeKey, {
-//   publisher: node.identity,
-//   timestamp: Date.now(),
-//   value: 'Test value',
-// }, (err, number) => {
-//   if (err) { console.log("Error!", err); }
-//   console.log('Number of nodes storing pair', number); // logs 0
-// });
-
-// https://kadence.github.io/lib_node-kademlia.js.html
-node.iterativeFindValue(nodeKey, (err, value, contacts) => {
+node.iterativeStore(nodeKey, {
+  publisher: node.identity,
+  timestamp: Date.now(),
+  value: 'Test value',
+}, (err, number) => {
   if (err) { console.log("Error!", err); }
-  console.log('Found: ', value, ' in', contacts);
+  console.log('Number of nodes storing pair', number); // logs 0
+
+  node.iterativeFindValue(nodeKey, (err, value, contacts) => {
+    if (err) { console.log("Error!", err); }
+    console.log('Found: ', value, ' in', contacts);
+  });
 });
 
-// node.iterativeStore(nodeKey, {
-//   publisher: node.identity,
-//   timestamp: Date.now(),
-//   value: 'Node BatNode',
-// }, (err, number) => {
-//   var err = err;
-//   var number = number;
-//   setTimeout((err, number) => {
-//     if (err) { console.log("Error!", err); }
-//     console.log('Number of nodes storing pair', number); // logs undefined
-//   }, 1000);
-// });
+// https://kadence.github.io/lib_node-kademlia.js.html
+setTimeout(() => {
+  console.log('\nAlso check after timeout');
+  node.iterativeFindValue(nodeKey.toString('hex'), (err, value, contacts) => {
+    if (err) { console.log("Error!", err); }
+    console.log('Found: ', value, ' in', contacts);
+  });
+}, 1000);
 
 // node.iterativeStore(nodeKey, {
 //   publisher: node.identity,
 //   timestamp: Date.now(),
-//   value: 'Node BatNode',
+//   value: 'True',
 // }, (err, number) => {
 //   setTimeout((err, number) => {
 //   otherNode.storage.get(nodeKey, function(err, value) {
 //     if (err) throw err                // throws error - key not found
-//     console.log('batNode=' + value)
+//     console.log('otherNode=' + value)
 //   }, 1000);
 // });
 
@@ -89,8 +84,8 @@ node.iterativeFindValue(nodeKey, (err, value, contacts) => {
 // node.storage.put('batNode', 'true', function (err) {
 //   if (err) throw err // I/O error
 //   node.storage.get('batNode', function (err, value) {
-    // if (err) throw err // key not found
-    //
-    // console.log('batNode=' + value)
+//     if (err) throw err // key not found
+//
+//     console.log('batNode=' + value)
 //   })
 // })
