@@ -12,7 +12,7 @@ const traverse = require('@kadenceproject/kadence/')
 const node = kad({
   transport: new kad.HTTPTransport(),
   storage: levelup(encoding(leveldown('./mydb'))),
-  contact: { hostname: 'https://kadence-test.appspot.com', port: 1337 }
+  contact: { hostname: 'localhost', port: 1338 }
 });
 
 node.traverse = node.plugin(
@@ -28,4 +28,4 @@ node.traverse = node.plugin(
   ])
 );
 
-node.listen(1337);
+node.listen(1338);
