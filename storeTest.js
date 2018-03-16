@@ -64,7 +64,7 @@ setTimeout(() => {
 // node.iterativeStore(nodeKey, {
 //   publisher: node.identity,
 //   timestamp: Date.now(),
-//   value: 'True',
+//   value: 'Other node',
 // }, (err, number) => {
 //   setTimeout((err, number) => {
 //   otherNode.storage.get(nodeKey, function(err, value) {
