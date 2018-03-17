@@ -10,6 +10,7 @@ const async = require('async');
 const traverse = require('@kadenceproject/kadence/')
 
 const node = kad({
+  identity: '0000000000000000000000000000000000000000',
   transport: new kad.HTTPTransport(),
   storage: levelup(encoding(leveldown('./mydb'))),
   contact: { hostname: 'https://kadence-test.appspot.com', port: 1337 }
