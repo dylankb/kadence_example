@@ -7,26 +7,28 @@ const leveldown = require('leveldown');
 const encoding = require('encoding-down');
 const kad = require('@kadenceproject/kadence');
 const async = require('async');
-const traverse = require('@kadenceproject/kadence/')
+const traverse = require('@kadenceproject/kadence/');
+const seedInfo = require('./../seedInfo').seedInfo;
+debugger;
 
-const node = kad({
-  identity: '0000000000000000000000000000000000000000',
+const seed = kad({
+  identity: seedInfo.identity,
   transport: new kad.HTTPTransport(),
-  storage: levelup(encoding(leveldown('./mydb'))),
-  contact: { hostname: 'https://kadence-test.appspot.com', port: 1337 }
+  storage: levelup(encoding(leveldown('./db'))),
+  contact: seedInfo.contact
 });
 
-node.traverse = node.plugin(
+seed.traverse = seed.plugin(
   kad.traverse([
     new kad.traverse.UPNPStrategy({
       mappingTtl: 0, // config.TraversePortForwardTTL
-      publicPort: parseInt(node.contact.port)
+      publicPort: parseInt(seed.contact.port)
     }),
     new kad.traverse.NATPMPStrategy({
       mappingTtl: 0, // config.TraversePortForwardTTL
-      publicPort: parseInt(node.contact.port)
+      publicPort: parseInt(seed.contact.port)
     })
   ])
 );
 
-node.listen(1337);
+seed.listen(1337);

@@ -5,3 +5,6 @@ CURRENT
 LOG
 LOCK
 *.log
+
+demo-remote/local-kadnode/db
+demo-remote/remote-kadnode/db
