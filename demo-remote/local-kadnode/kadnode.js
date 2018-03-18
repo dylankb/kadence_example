@@ -16,7 +16,6 @@ const node = kad({
   contact: { hostname: 'localhost', port: 1338 }
 });
 
-
 console.log(`node router size - pre-ping: ${node.router.size}`); // 0
 node.ping([seedInfo.identity, seedInfo.contact], (error, latency) => {
   console.log('ping successful?', error, latency)
